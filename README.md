@@ -1,7 +1,7 @@
 # zycs_WiFi_location  
 A simple Fingerprint positioning system with svm and knn   
 requirements:Python2, sklearn, matplotlib  
-data from:[9]	Mendoza Silva, German & Richter, Philipp & Torres-Sospedra, Joaquín & Lohan, Elena Simona & Huerta, Joaquín. (2018). Long-Term WiFi Fingerprinting Dataset for Research on Robust Indoor Positioning. Data. 3. 3. 10.3390/data3010003.  
+data from:Mendoza Silva, German & Richter, Philipp & Torres-Sospedra, Joaquín & Lohan, Elena Simona & Huerta, Joaquín. (2018). Long-Term WiFi Fingerprinting Dataset for Research on Robust Indoor Positioning. Data. 3. 3. 10.3390/data3010003.  
   
 base.py：包括WiFi信号预处理函数，绘图函数等基础函数，无具体算法的函数。无须直接执行本代码。  
 check.py：验证是否所有数据都是采集6次的，确实都是。  

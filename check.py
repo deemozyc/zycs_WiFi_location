@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from base import *
 
-def check6(coord):
+def check6(coord): #是否每个点都是采集6次
 	if(len(coord)%6!=0):
 		print "NO!!!!!!!"
 	for i in range(len(coord)/6):

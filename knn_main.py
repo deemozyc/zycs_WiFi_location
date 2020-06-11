@@ -18,7 +18,7 @@ def dis_sort(tst, trn): #返回排序后的【距离，序号】的list
 	return dis
 
 		
-def get_knn(nn_list, trn_coord): #更改k值或阈值
+def get_knn(nn_list, trn_coord): #计算knn结果
 	
 	#k = 30
 	#k = 15
@@ -71,6 +71,7 @@ def run_knn_test(trn_coord_file, tst_coord_file, trn_rss_file, tst_rss_file):
 		cal_coord.append(ans)
 		err.append(get_dis_eucl(ans, tst_coord[i]))
 		ans_sum = get_dis_eucl(ans, tst_coord[i]) + ans_sum
+	#return ans_sum/len(tst_rss)
 	return ans_sum/len(tst_rss)
 	
 if __name__ == "__main__":
@@ -139,7 +140,7 @@ if __name__ == "__main__":
 	
 	ans = []
 	month = []
-
+	all_err  =[]
 	for i in range(1, 26): #月份
 		for j in range(1, 6): #测试集
 			if(i < 10):
@@ -148,6 +149,7 @@ if __name__ == "__main__":
 				pre = "db/" + str(i) + "/"
 			
 			temp = run_knn_test(pre + "trn01crd.csv", pre + "tst0" + str(j) + "crd.csv", pre + "trn01rss.csv", pre + "tst0" + str(j) + "rss.csv")
+			#all_err.extend(temp_err)
 			print temp
 			ans.append(temp)
 			if(j == 1):
@@ -159,6 +161,16 @@ if __name__ == "__main__":
 	print "total_avg = ", sum(ans)/len(ans)
 	
 	print "time: ", (time.time()-start_time), " s"
+	
+	"""
+	写入文件用
+	print "lem of all_err:",len(all_err)
+	
+	f=open("knn_err_data.txt","w")
+	for line in all_err:
+		f.write(str(line)+'\n')
+	f.close()
+	"""
 	#print run_test("db/01/trn01crd.csv", "db/01/tst01crd.csv", "db/01/trn01rss.csv", "db/01/tst01rss.csv")
 	#print_err(err)
 		

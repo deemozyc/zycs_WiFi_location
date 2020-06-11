@@ -1,5 +1,5 @@
 # coding:utf-8
-distance_algorithm = 'Euclidean_distance' 
+distance_algorithm = 'Manhattan_distance' 
 """
 knn距离算法设置，误差计算固定用欧氏距离，knn中的距离可选，可选：
 Euclidean_distance(欧氏距离)
@@ -20,10 +20,10 @@ AP_limit = 448
 knn计算距离时的AP选择数量，默认448（全部AP）
 """
 
-def get_distance_algorithm():
+def get_distance_algorithm(): #获取distance_algorithm
 	return distance_algorithm
 	
-def ex_distance_algorithm(new_distance_algorithm):
+def ex_distance_algorithm(new_distance_algorithm): #修改distance_algorithm
 	if(new_distance_algorithm != "Euclidean_distance" and new_distance_algorithm != "Manhattan_distance" and new_distance_algorithm != "Cosine_distance"):
 		print "错误的距离定义！修改失败"
 		return

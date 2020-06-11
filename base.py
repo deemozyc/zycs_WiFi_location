@@ -28,8 +28,8 @@ def list_max(a,b): #两个list的每个数取max
 		c.append(max(a[i], b[i]))
 	return c
 		
-def get_kth(a, k):
-	aa = list(a)
+def get_kth(a, k): #获得a中第k大的值
+	aa = list(a) #为了不改变a
 	aa.sort()
 	return aa[len(aa)-k]
 
@@ -67,8 +67,6 @@ def get_dis(a, b): #获取两向量的距离 测试集在前
 	AP = get_AP_limit()
 	if(AP < 448):
 		[a,b] = AP_choose(a, b, AP)
-		
-		
 	
 	algorithm = get_distance_algorithm()
 	if(algorithm == 'Euclidean_distance'):
@@ -99,10 +97,8 @@ def get_dis_excos(a, b):
 	temp.sort()
 	temp.reverse()
 	#scale = temp[5]
-	
 	aa = []
 	bb = []
-	
 	
 	for i in range(len(a)):
 		if a[i] > scale:
@@ -112,12 +108,10 @@ def get_dis_excos(a, b):
 	ans = np.dot(aa,bb)/(np.linalg.norm(aa)*np.linalg.norm(bb))
 	return -ans
 
-
 def get_dis_cos(a, b): #余弦距离
 	return -np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b))
 	r#eturn get_dis_excos(a, b)
 	
-
 
 def random_color(): #随机颜色
     colorArr = ['1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
@@ -137,7 +131,7 @@ def get_csv(filename): #读csv文件为list并转float
 
 	return csv_list
 	
-def coord_zip(coord): #6个取1个
+def coord_zip(coord): #6个压缩为1个
 	ans = []
 	for i in range(len(coord)):
 		if(i%6 == 0):
@@ -159,7 +153,6 @@ def rss_zip(rss): #6个平均成1个 可改max等
 		for j in range(len(rss[i])):
 			if rss[i][j] == 100.0:
 				rss[i][j] = -100.0
-	
 	
 	ans = []
 	j = 0
@@ -262,7 +255,7 @@ def draw_static_pic(std_coord, cal_coord): #静态图
 			plt.legend()
 	plt.show()
 		
-def deal_rss(rss):
+def deal_rss(rss): #信号预处理
 	if(get_rss_algorithm() == 'None'):
 		return rss
 	if(get_rss_algorithm() == 'DIFF'):
@@ -271,7 +264,7 @@ def deal_rss(rss):
 		return rss_ssd(rss)
 
 
-def rss_diff(rss):
+def rss_diff(rss): #diff预处理
 	ans = []
 	for it in rss:
 		temp = []
@@ -281,7 +274,7 @@ def rss_diff(rss):
 		ans.append(temp)
 	return ans
 			
-def rss_ssd(rss):
+def rss_ssd(rss): #ssd预处理
 	ans = []
 	for it in rss:
 		temp = []
@@ -296,6 +289,7 @@ def coord_2d(coord): #3维坐标删除第三维
 	return coord
 	
 
+        
 if __name__ == "__main__":
 	print "this is base.py!"
 	print 0.0075/0.4*100.0

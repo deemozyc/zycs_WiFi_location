@@ -9,9 +9,7 @@ from math import ceil, floor
 from base import *
 
 
-def coord2num(coord):
-	#一个坐标转一个序号
-	
+def coord2num(coord): #一个坐标转一个序号
 	if coord[0] < 6:
 		x = 1
 	if coord[0] > 6 and coord[0] < 11:
@@ -27,15 +25,13 @@ def coord2num(coord):
 		y = 3
 	return x*10 + y
 
-def cal_class(coords):
-	#将坐标构成的list转分类序号构成的list
+def cal_class(coords): #将坐标构成的list转分类序号构成的list
 	ans = []
 	for coord in coords:
 		ans.append(coord2num(coord))
 	return ans
 
-def num2coord( num):
-	#将每组的标号转化为2维坐标（该区域中心的一个整点）
+def num2coord( num): #将每组的标号转化为2维坐标（该区域中心的一个整点）
 	x=num // 10
 	y=num % 10
 	ans = []
@@ -57,8 +53,7 @@ def num2coord( num):
 		
 	return ans
 
-def get_3floor(coord, rss):
-	#只用第3层的数据
+def get_3floor(coord, rss): #只用第3层的数据
 	ans_coord = []
 	ans_rss = []
 	for i in range(len(rss)):
@@ -69,8 +64,8 @@ def get_3floor(coord, rss):
 	return [ans_coord, ans_rss]
 		
 
-def run_svm_test(trn_coord_file, tst_coord_file, trn_rss_file, tst_rss_file):
-	#输入数据集 返回svm的平均误差
+def run_svm_test(trn_coord_file, tst_coord_file, trn_rss_file, tst_rss_file): #输入数据集 返回svm的平均误差
+	
 	trn_coord = get_csv(trn_coord_file)
 	trn_coord = coord_zip(trn_coord)
 
@@ -93,7 +88,6 @@ def run_svm_test(trn_coord_file, tst_coord_file, trn_rss_file, tst_rss_file):
 	tst_coord = temp[0]
 	tst_rss = temp[1]
 	
-	
 	X = trn_rss
 	Y = cal_class(trn_coord)
 	clf = SVC(gamma = 'auto', decision_function_shape='ovr', kernel = "poly", C = 2)
@@ -102,10 +96,12 @@ def run_svm_test(trn_coord_file, tst_coord_file, trn_rss_file, tst_rss_file):
 	sum_err = 0
 	all_test = 0
 	ac_test = 0
+	err = []
 	for i in range(len(tst_rss)):
 		num = clf.predict([tst_rss[i]])
 		ans = num2coord(num)
 		sum_err += get_dis_eucl(ans, tst_coord[i])
+		err.append(get_dis_eucl(ans, tst_coord[i]))
 		all_test = all_test + 1
 		#print coord2num(ans), coord2num(tst_coord[i])
 		if(coord2num(ans) == coord2num(tst_coord[i])):
@@ -161,7 +157,7 @@ if __name__ == "__main__":
 	ac_rate = []
 	rate_month = []
 	mis_month = []
-	
+	all_err  =[]
 	for i in range(1, 26): #月份
 		for j in range(1, 6): #测试集
 			if(i < 10):
@@ -173,6 +169,7 @@ if __name__ == "__main__":
 			print temp
 			avg_mis.append(temp[0])
 			ac_rate.append(temp[1])
+			#all_err.extend(temp[2])
 			if(j == 1):
 				mis_month.append(temp[0])
 				rate_month.append(temp[1])
@@ -191,6 +188,13 @@ if __name__ == "__main__":
 	
 	print "time: ", (time.time()-start_time), " s"
 	
+	"""
+	print "lem of all_err:",len(all_err)
+	f=open("svm_err_data.txt","a")
+	for line in all_err:
+		f.write(str(line)+'\n')
+	f.close()
+	"""
 	
 	
 	
